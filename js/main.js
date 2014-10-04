@@ -1,7 +1,12 @@
 $(function(){
-    var text = "Four score and seven years ago..."
+    var text = "George Washington was in Valley Forge, Pennsylvania"
     // convert text to index
-    sendIDOLAPICall("querytextindex", {text: "Dog", database_match: "wiki_eng"});
+    // sendIDOLAPICall("createtextindex", {flavor: "standard"});
+    
+    // TODO mark up text
+    
+    // display raw text
+    $("#text-main").html(text);
 });
 
 /**
