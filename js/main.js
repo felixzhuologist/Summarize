@@ -65,7 +65,7 @@ function showHoverInfo(text){
         'jsonp'
     ).success(function(data){
         // render
-        if(data.Heading != ""){
+        if(data.Heading != "" && data.Abstract != ""){
             template("template-hover-info", $('.hover-info'), data);
         }
     });
