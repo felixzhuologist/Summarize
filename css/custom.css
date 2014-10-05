@@ -2,6 +2,8 @@
 	width: 600px;
 	margin-right: auto;
 	margin-left: auto;
+	padding-top: 10px;
+	padding-bottom: 0px;
 }
 
 #buttons {
@@ -9,12 +11,21 @@
 	text-align: center;
 	margin-right: auto;
 	margin-left: auto;
-	margin: 0, auto;
+	padding: 0px 15px 20px 15px;
 }
 
 .pic {
 	width: 100px;
 	height: 100px;
 	margin-left: 0px;
-	padding: 10px;
+	padding: 5px;
+}
+
+#text-main {
+	font-family: 'Libre Baskerville', serif;
+	text-align: justify;
+}
+
+.tab-content {
+	padding: 15px;
 }
