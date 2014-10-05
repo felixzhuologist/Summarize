@@ -87,12 +87,13 @@ hr {
 }
 
 #text-main {
-	font-family: 'Libre Baskerville', Georgia, serif;
 	text-align: justify;
 }
 
-#summary-main{
-	font-family: 'Libre Baskerville', Georgia, serif;    
+
+#text-main, #summary-main{
+	font-family: 'Libre Baskerville', Georgia, serif; 
+    font-size: 1.3em;
 }
 
 .tab-content {
@@ -110,4 +111,9 @@ hr {
 }
 #output{
     display: none;
+}
+
+.scrollable{
+    max-height: 600px;
+    overflow: auto;
 }

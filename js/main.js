@@ -1,38 +1,74 @@
 $(function(){
     // bind handlers
     $("#btn-submit").click(function(){
-        $('#inputs').hide();
-        $('#output').show();
-        
-        console.log("...");
-        
-        // show spinner
-        var spinner = $('<span><span class="glyphicon glyphicon-refresh"></span> Analyzing...</span>');
-        $("#text-main").html(spinner.outerHTML());
-        $('#summary-main').html(spinner.outerHTML());
-        
         var text = getInput();
         render(text);
+    });
+    
+    $('#uploadfilebutton').click(function(){
+        $('#upload-digitized-pdf').ajaxSubmit(function(referenceObject, textStatus){
+            if(referenceObject && referenceObject.reference){
+                var promise = sendIDOLAPICall("extracttext", {
+                    reference: referenceObject.reference
+                });
+                promise.done(function success(result, data){
+                    console.log(result);
+                    if(result){
+                        var text = result.document[0].content;
+                        render(text, referenceObject.reference);
+                    }
+                });
+            }
+        });
     });
 });
 
 /**
 
-Shows the given text, annotates it, and summarizes it.
+Shows the given text or reference, annotates it, and summarizes it.
+
+@param {String} text    The raw text
+@param {String} reference   [optional] if passed, we'll use this for the API call.
 
 */
-function render(text){
-    // var text = "George Washington was in Valley Forge, Pennsylvania";
-    /* convert text to index
-    // sendIDOLAPICall("createtextindex", {flavor: "standard"});*/
+function render(text, reference){
+    
+    // interface
+    $('#inputs').hide();
+    $('#output').show();
+
+    console.log("...");
+
+    // show spinner
+    var spinner = $('<span><span class="glyphicon glyphicon-refresh"></span> Analyzing...</span>');
+    $("#text-main").html(spinner.outerHTML());
+    $('#summary-main').html(spinner.outerHTML());
+            
     
     // find entities (key people, places, etc.)
     
-    var promise = sendIDOLAPICall("extractentities", {
-        text: text,
-        entity_type: ["people_eng", "places_eng", "date_eng"]
-    });    
+    var promise;
+    if(reference){
+        promise = sendIDOLAPICall("extractentities", {
+            reference: reference,
+            entity_type: ["people_eng", "places_eng", "date_eng", "companies_eng"]
+        });        
+    }
+    else{
+
+        promise = sendIDOLAPICall("extractentities", {
+            text: text,
+            entity_type: ["people_eng", "places_eng", "date_eng", "companies_eng"]
+        });         
+    }   
     promise.done(function success(data, textStatus){
+        // remove duplicates
+        if(data.entities){
+            data.entities = data.entities.unique(function(entity){
+                return entity.normalized_text;
+            });
+        }
+        
         // mark up text
         text = markupByEntity(text, data);
         $("#text-main").html(text);
@@ -150,6 +186,11 @@ function markupByEntity(text, apiResponse){
                     case "date_eng":
                         cssClass = "text-danger";
                         break;                    
+                    case "companies_eng":
+                        cssClass = "text-warning";
+                        // normalized text is bad for 0-click so use original text
+                        entity.normalized_text = entity.original_text;
+                        break;
             }
             
             // to replace all, first replace 

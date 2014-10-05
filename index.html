@@ -4,7 +4,7 @@
         <title>Summarize</title>
         <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/custom.css">
-        <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville:400,700' rel='stylesheet' type='text/css'>
     </head>
     <body>
 
@@ -46,61 +46,10 @@
             </div>
             <div id="buttoncontainer">
                 <div id="buttons" class="btn-group btn-group-lg">
-                <h3 style="float: left"> Upload  &nbsp </h3>
-                    <button class="btn btn-info" data-toggle="modal" data-target="#myModal" id="modalButton1">scanned</button>
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Upload file to summarize</h4>
-                          </div>
-                          <div class="modal-body" id="modalbody">
-                               <div class="pagenumbers">
-                                    <label for="f1">Summarize from page: </label>
-                                    <input id="f1" type="number" class="pagenumber" placeholder:"from" value="from">
-                                    <label for="t2"> To page: </label>
-                                    <input id="t2" type="number" class="pagenumber" placeholder:"to" value="to">
-                                </div>
-                            <form action="/upload" method="post" enctype="multipart/form-data">
-                                <center><input type="file" name="file" id="files2"/></center>
-                                <!-- <button type="submit">Upload</button>                       -->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button class="btn btn-primary" type="submit" id="uploadfilebutton" data-loading-text="Upload" onclick="disableButton();">Upload</button>
-                          </div>
-                            </form>
-                        </div>
-                      </div>
-                    </div>
-                <button class="btn btn-info" data-toggle="modal" data-target="#myModal" id="modalButton">digitized</button>
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Upload file to summarize</h4>
-                      </div>
-                      <div class="modal-body" id="modalbody">
-                        <div class="pagenumbers">
-                                <label for="f2">Summarize from page: </label>
-                                <input id="f2" type="number" class="pagenumber" placeholder:"from" value="from">
-                                <label for="t1"> To page: </label>
-                                <input id="t1" type="number" class="pagenumber" placeholder:"to" value="to">
-                        </div>
-                        <form action="/upload" method="post" enctype="multipart/form-data">
-                            <center><input type="file" name="file" id="files2"/></center>
-                            <!-- <button type="submit">Upload</button>                       -->
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" type="submit" id="uploadfilebutton" data-loading-text="Upload" onclick="disableButton();">Upload</button>
-                      </div>
-                        </form>
-                    </div>
-                  </div>
-                </div>
+                <!--<h3 style="float: left"> Upload  &nbsp </h3>-->
+                    <!--<button class="btn btn-info" data-toggle="modal" data-target="#myModal" id="modalButton1">scanned</button>-->
+                <button class="btn btn-info" data-toggle="modal" data-target="#myModal" id="modalButton">
+                    <span class="glyphicon glyphicon-upload"></span> Upload document</button>
             </div>
             <!--
             <div id="uploadcontainer">
@@ -122,15 +71,15 @@
               <li><a href="#summary" data-toggle="tab">Summary</a></li>
             </ul>
             
-            <div class="tab-content">
+            <div class="tab-content" id="output-main">
                 <div class="tab-pane active row" id="text">
-                    <div id="text-main" class="col-lg-9 col-md-9 col-sm-8 col-xs-8">
+                    <div id="text-main" class="col-lg-9 col-md-9 col-sm-8 col-xs-8 scrollable">
                     </div>
-                    <div id="text-main" class="col-lg-3 col-md-3 col-sm-4 col-xs-4 hover-info">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 hover-info">
                     </div> 
                 </div>
                 <div class="tab-pane row" id="summary">
-                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8" id="summary-main">
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 scrollable" id="summary-main">
                     </div>         
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 hover-info">
                     </div> 
@@ -164,7 +113,15 @@
                         <li>{{normalized_text}}</li>
                     {{/each}}                       
                 </ul>            
-            {{/if}}            
+            {{/if}}        
+            {{#if companies_eng}}
+                <h3 class="text-warning">Companies</h3>
+                <ul>
+                    {{#each companies_eng}}
+                        <li>{{original_text}}</li>
+                    {{/each}}                       
+                </ul>            
+            {{/if}}              
         </script>
         <script type="text/x-handlebars-template" id="template-hover-info">
              <div class="panel panel-default">
@@ -177,12 +134,45 @@
                 </div>
             </div>            
         </script>
+            
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Upload file to summarize</h4>
+              </div>
+              <div class="modal-body" id="modalbody">
+
+                  <p class="text-info">PDF, DOC, and DOCX files supported.</p>
+                   <!--<div class="pagenumbers">
+                        <label for="f1">Summarize from page: </label>
+                        <input id="f1" type="number" class="pagenumber" placeholder:"from" value="from">
+                        <label for="t2"> To page: </label>
+                        <input id="t2" type="number" class="pagenumber" placeholder:"to" value="to">
+                    </div>-->
+
+                <form action="https://api.idolondemand.com/1/api/sync/storeobject/v1" method="post" enctype="multipart/form-data" class="text-center" id="upload-digitized-pdf">
+                    <input type="hidden" name="apikey" value="e0ce31f4-9608-45ad-92ef-2aa13fc94471">
+                    <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+                    <input type="file" name="file" id="file" />
+
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" type="submit" id="uploadfilebutton" data-dismiss="modal" data-loading-text="Upload">Upload</button>
+              </div>
+            </div>
+          </div>
+        </div>            
         
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="js/sugar.min.js"></script>
         <script src="js/handlebars-v2.0.0.js"></script>
-        <script src='js/jquery.ddg.js'></script>
+        <script src="js/jquery.form.min.js"></script>
         
         <script src="js/constants.js"></script>
         <script src="js/input.js"></script>
