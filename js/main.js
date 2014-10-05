@@ -28,11 +28,59 @@ function render(text){
         text = markupByEntity(text, data);
         $("#text-main").html(text);
         
+        // on hover/click, show 0-click info with DuckDuckGo
+        $("#text-main strong").on('hover click', function(){
+            var text = $(this).html();
+            
+            showHoverInfo(text);
+        });
+        
         // summarize it too
         var categories = data.entities.groupBy("type");
         console.log(categories);
         template("template-outline", $("#summary-main"), categories);
     });          
+}
+
+/**
+    Shows DuckDuckGo 0-Click information when the given text is hovered or clicked.
+*/
+function showHoverInfo(text){
+    var baseURL = "https://api.duckduckgo.com/?";
+    var args = {
+        q: text,
+        format: "json",
+        skip_disambig: 1
+    };
+    var url = baseURL + Object.toQueryString(args);
+    $.get(
+        url,
+        function(j){},
+        'jsonp'
+    ).success(function(data){
+        console.log(data);    
+    });
+    
+    /*
+    $.ajax({
+        url: "https://api.duckduckgo.com",
+        type: "GET",
+        data: {
+            q: text,
+            format: "jsonp",
+            skip_disambig: 1,
+            callback: "abc"
+        },
+
+        success: function(data, textStatus){
+            console.log(data);
+        }
+    });
+    */
+}
+
+function abc(){
+    console.log(555);
 }
 
 /**
