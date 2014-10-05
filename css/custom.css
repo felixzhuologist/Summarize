@@ -11,3 +11,10 @@
 	margin-left: auto;
 	margin: 0, auto;
 }
+
+.pic {
+	width: 100px;
+	height: 100px;
+	margin-left: 0px;
+	padding: 10px;
+}
