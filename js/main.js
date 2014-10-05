@@ -5,18 +5,24 @@ $(function(){
     
     // find entities (key people, places, etc.)
     
-    var promise = sendIDOLAPICall("extractentities", {
-        text: text,
-        entity_type: "people_eng"
+    var entityTypes = [
+        { entityType: "people_eng", cssClass: "entity-people" },
+        { entityType: "places_eng", cssClass: "entity-places" },
+        { entityType: "date_eng", cssClass: "entity-date" },
+    ];
+    entityTypes.forEach(function(type){
+        var promise = sendIDOLAPICall("extractentities", {
+            text: text,
+            entity_type: type.entityType
+        });
+        promise.done(function success(data, textStatus){
+            console.log(5);
+            text = markupByEntity(text, type.cssClass, data);
+        });       
     });
-    promise.done(function success(data, textStatus){
-        var people_entities = data.entities;
-        console.log(people_entities);
-        text = markupByEntity(text, people_entities);
 
-        // display marked-up text
-        $("#text-main").html(text);
-    });
+    // display marked-up text
+    $("#text-main").html(text);
 });
 
 /**
@@ -51,17 +57,18 @@ function sendIDOLAPICall(apiName, args){
 
 Adds a <span class="entity"> tag to terms mentioned in the api response.
 @param {String} text    The raw text
+@param {String} cssClass    The custom CSS class to add to the highlighted terms.
 @param {Object} apiResponse The raw response data delivered from the "extractentities" call to the IDOL API.
 
 */
-function markupByEntity(text, apiResponse){
+function markupByEntity(text, cssClass, apiResponse){
     if(apiResponse.entities){
         apiResponse.entities.forEach(function(entity){
             // replace all instances of original text w/ text wrapped in tag
             var original = entity.original_text;
-            while(Object.has(text, original)){
-                text = text.replace(entity.original, "<span class='entity'>" + entity.original + "</span>");
-            }
+            // to replace all, first replace 
+            text = text.replace(new RegExp(RegExp.escape(original), "g"), 
+                                "<strong class='entity'>" + original + "</strong>");
         });
                 
         return text;
