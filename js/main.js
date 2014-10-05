@@ -1,11 +1,7 @@
 $(function(){
     // bind handlers
-<<<<<<< HEAD
-    $(".btn-success").click(function(){
-=======
     $("#btn-submit").click(function(){
         console.log("...");
->>>>>>> neel
         var text = getInput();
         render(text);
     });
@@ -28,25 +24,14 @@ function render(text){
         entity_type: ["people_eng", "places_eng", "date_eng"]
     });    
     promise.done(function success(data, textStatus){
-<<<<<<< HEAD
-        console.log(D = data);
-=======
-        // there may be some extraneous entities (lesser-known people of the same name) so get rid of those
-        // TODO TODO TODO
-        
->>>>>>> neel
         // mark up text
         text = markupByEntity(text, data);
         $("#text-main").html(text);
         
         // summarize it too
-<<<<<<< HEAD
-        // first break into categories
-=======
         var categories = data.entities.groupBy("type");
         console.log(categories);
         template("template-outline", $("#summary-main"), categories);
->>>>>>> neel
     });          
 }
 
