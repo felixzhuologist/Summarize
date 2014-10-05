@@ -5,6 +5,7 @@ body {
 h2, h3 {
 	font-family: 'Libre Baskerville', serif;
 	line-height: 160%;
+	margin-top: 10px;
 }
 
 hr {
@@ -20,8 +21,6 @@ hr {
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
-	padding-top: 0px;
-	margin-top: 0px;
 }
 .tab-content {
 	background-color: white;
@@ -32,6 +31,10 @@ hr {
 	border-bottom-right-radius: 4px
 }
 
+.pagenumber {
+	padding-left: 10px;
+	padding-right: 10px;
+}
 .modal-body {
 	padding-top: 25px;
 	padding-bottom: 25px;
@@ -66,7 +69,7 @@ hr {
 	text-align: center;
 	margin-right: auto;
 	margin-left: auto;
-	padding: 0px 15px 20px 15px;
+	padding: 0px 15px;
 }
 
 .pic {

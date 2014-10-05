@@ -43,7 +43,12 @@
                             <h4 class="modal-title" id="myModalLabel">Upload file to summarize</h4>
                           </div>
                           <div class="modal-body" id="modalbody">
-                            <p id="filelimit"><small><strong>5MB limit.</strong> Only pdfs will work<br></small></p>
+                               <div class="pagenumbers">
+                                    <label for="f1">Summarize from page: </label>
+                                    <input id="f1" type="number" class="pagenumber" placeholder:"from" value="from">
+                                    <label for="t2"> To page: </label>
+                                    <input id="t2" type="number" class="pagenumber" placeholder:"to" value="to">
+                                </div>
                             <form action="/upload" method="post" enctype="multipart/form-data">
                                 <center><input type="file" name="file" id="files2"/></center>
                                 <!-- <button type="submit">Upload</button>                       -->
@@ -67,7 +72,12 @@
                             <h4 class="modal-title" id="myModalLabel">Upload file to summarize</h4>
                           </div>
                           <div class="modal-body" id="modalbody">
-                            <p id="filelimit"><small><strong>5MB limit.</strong> Only pdfs will work<br></small></p>
+                            <div class="pagenumbers">
+                                    <label for="f2">Summarize from page: </label>
+                                    <input id="f2" type="number" class="pagenumber" placeholder:"from" value="from">
+                                    <label for="t1"> To page: </label>
+                                    <input id="t1" type="number" class="pagenumber" placeholder:"to" value="to">
+                            </div>
                             <form action="/upload" method="post" enctype="multipart/form-data">
                                 <center><input type="file" name="file" id="files2"/></center>
                                 <!-- <button type="submit">Upload</button>                       -->
