@@ -29,7 +29,8 @@ function render(text){
         $("#text-main").html(text);
         
         // on hover/click, show 0-click info with DuckDuckGo
-        $("#text-main strong").on('hover click', function(){
+        $('.hover-info').empty();
+        $("#text-main strong").on('mouseover click', function(){
             var text = $(this).html();
             
             showHoverInfo(text);
@@ -39,6 +40,11 @@ function render(text){
         var categories = data.entities.groupBy("type");
         console.log(categories);
         template("template-outline", $("#summary-main"), categories);
+        $("#summary-main li").on('mouseover click', function(){
+            var text = $(this).html();
+            
+            showHoverInfo(text);
+        });        
     });          
 }
 
@@ -58,7 +64,10 @@ function showHoverInfo(text){
         function(j){},
         'jsonp'
     ).success(function(data){
-        console.log(data);    
+        // render
+        if(data.Heading != ""){
+            template("template-hover-info", $('.hover-info'), data);
+        }
     });
     
     /*
@@ -77,10 +86,6 @@ function showHoverInfo(text){
         }
     });
     */
-}
-
-function abc(){
-    console.log(555);
 }
 
 /**

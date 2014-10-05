@@ -72,24 +72,15 @@
                 <div class="tab-pane active row" id="text">
                     <div id="text-main" class="col-lg-9 col-md-9 col-sm-8 col-xs-8">
                     </div>
-                    <div id="text-main" class="col-lg-3 col-md-3 col-sm-4 col-xs-4 zero-click">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><b>George Washington</b></h3>
-                            </div>
-                            <div class="panel-body">
-                                <img class="pic" src="images/GW.jpg" alt="pres" align="left">
-                                <p> George Washington (February 22, 1732 [O.S. February 11, 1731] – December 14, 1799) was the first President of the United States (1789–1797), the Commander-in-Chief of the Continental Army during the American Revolutionary War, and one of the Founding Fathers of the United States.
-                                </p>
-                            </div>
-                        </div> 
+                    <div id="text-main" class="col-lg-3 col-md-3 col-sm-4 col-xs-4 hover-info">
+                        
                     </div> 
                 </div>
                 <div class="tab-pane row" id="summary">
                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8" id="summary-main">
                         ...
                     </div>         
-                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 zero-click">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 hover-info">
                         0-click
                     </div> 
                 </div>                 
@@ -123,6 +114,17 @@
                     {{/each}}                       
                 </ul>            
             {{/if}}            
+        </script>
+        <script type="text/x-handlebars-template" id="template-hover-info">
+             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><b>{{Heading}}</b></h3>
+                </div>
+                <div class="panel-body">
+                    <img class="pic pull-left img-rounded" src="{{Image}}" alt="{{Heading}}">
+                    <p>{{AbstractText}}</p>
+                </div>
+            </div>            
         </script>
         
         <script src="js/jquery-1.11.1.min.js"></script>
