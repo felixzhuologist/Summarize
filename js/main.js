@@ -16,7 +16,6 @@ $(function(){
             entity_type: type.entityType
         });
         promise.done(function success(data, textStatus){
-            console.log(5);
             text = markupByEntity(text, type.cssClass, data);
         });       
     });
