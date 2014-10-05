@@ -198,7 +198,7 @@ function markupByEntity(text, apiResponse){
             var replacement = $('<strong></strong');
             replacement.addClass('entity').addClass(cssClass);
             replacement.html(original);
-            replacement.attr('data-normalized', entity.normalized_text.escapeHTML());
+            replacement.attr('data-normalized', entity.normalized_text);
             text = text.replace(new RegExp(RegExp.escape(original), "g"), replacement.outerHTML());
         });
         return text;
