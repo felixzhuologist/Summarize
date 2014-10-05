@@ -18,7 +18,11 @@
 	width: 100px;
 	height: 100px;
 	margin-left: 0px;
-	padding: 5px;
+	padding: 0px 5px 5px 0px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px; 
+	-khtml-border-radius: 10px; 
 }
 
 #text-main {
