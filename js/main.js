@@ -1,6 +1,11 @@
 $(function(){
     // bind handlers
+<<<<<<< HEAD
     $(".btn-success").click(function(){
+=======
+    $("#btn-submit").click(function(){
+        console.log("...");
+>>>>>>> neel
         var text = getInput();
         render(text);
     });
@@ -23,13 +28,25 @@ function render(text){
         entity_type: ["people_eng", "places_eng", "date_eng"]
     });    
     promise.done(function success(data, textStatus){
+<<<<<<< HEAD
         console.log(D = data);
+=======
+        // there may be some extraneous entities (lesser-known people of the same name) so get rid of those
+        // TODO TODO TODO
+        
+>>>>>>> neel
         // mark up text
         text = markupByEntity(text, data);
         $("#text-main").html(text);
         
         // summarize it too
+<<<<<<< HEAD
         // first break into categories
+=======
+        var categories = data.entities.groupBy("type");
+        console.log(categories);
+        template("template-outline", $("#summary-main"), categories);
+>>>>>>> neel
     });          
 }
 
@@ -97,4 +114,24 @@ function markupByEntity(text, apiResponse){
     else{
         return text;
     }
+}
+
+/**
+ * Loads the container with HTML from the source, with the data supplied. This uses Handlebars.
+ * @param {String}  source    the name of the index. Omit the hashtag. e.g. "template-xyz".
+ * @param {jQuery}  container the element to put the rendered HTML into.
+ * @param {Object}  data      the data used to render the template.
+ * @param {boolean} append    [optional; default false] if true, container will have HTML appended, not replaced.
+ * @return {jQuery} the jQuery items that were loaded into the container. This is just a collection of items, so to find something inside use [return value].closest([selector]).
+ */
+function template(source, container, data, append){
+     var sourceHTML = $('#' + source).html();
+     var templateFn = Handlebars.compile(sourceHTML);
+     var html = templateFn(data);
+     var jQ = $(html);
+     if(append)
+          container.append(jQ);
+     else
+          container.empty().append(jQ);
+     return jQ;
 }

@@ -14,7 +14,7 @@
                 <button type="button" class="btn btn-primary">Clear</button>     
             </div>
             <div id="buttons" class="btn-group btn-group-lg">
-                <button id="submitbutton" type="button" class="btn btn-success">Submit!</button>
+                <button type="button" class="btn btn-success" id="btn-submit">Submit!</button>
             </div>
 
             <span class="btn btn-default btn-file">
@@ -30,9 +30,14 @@
             
             <div class="tab-content">
                 <div class="tab-pane active row" id="text">
+<<<<<<< HEAD
                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8">
                         <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8" id="text-main"></div>         
                     </div>
+=======
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8" id="text-main">
+                    </div>         
+>>>>>>> neel
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 zero-click">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -47,13 +52,51 @@
                     </div> 
                 </div>
                 <div class="tab-pane row" id="summary">
+<<<<<<< HEAD
                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8" id="text-main"></div>         
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 zero-click" id="text-main">
                             0-click
+=======
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8" id="summary-main">
+                        ...
+                    </div>         
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 zero-click">
+                        0-click
+>>>>>>> neel
                     </div> 
                 </div>                 
             </div>
-        </section>
+        </section> 
+        
+        
+        <script type="text/x-handlebars-template" id="template-outline">
+            {{#if people_eng}}
+                <h3 class="text-success">People</h3>
+                <ul>
+                    {{#each people_eng}}
+                        <li>{{normalized_text}}</li>
+                    {{/each}}                       
+                </ul>
+            {{/if}}
+         
+            
+            {{#if places_eng}}
+                <h3 class="text-info">Places</h3>
+                <ul>
+                    {{#each places_eng}}
+                        <li>{{normalized_text}}</li>
+                    {{/each}}                       
+                </ul>            
+            {{/if}}            
+            {{#if date_eng}}
+                <h3 class="text-danger">Dates</h3>
+                <ul>
+                    {{#each date_eng}}
+                        <li>{{normalized_text}}</li>
+                    {{/each}}                       
+                </ul>            
+            {{/if}}            
+        </script>
         
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
