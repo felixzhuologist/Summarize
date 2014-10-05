@@ -31,7 +31,7 @@ function render(text){
         // on hover/click, show 0-click info with DuckDuckGo
         $('.hover-info').empty();
         $("#text-main strong").on('mouseover click', function(){
-            var text = $(this).html();
+            var text = $(this).data("normalized");
             
             showHoverInfo(text);
         });
@@ -41,7 +41,7 @@ function render(text){
         console.log(categories);
         template("template-outline", $("#summary-main"), categories);
         $("#summary-main li").on('mouseover click', function(){
-            var text = $(this).html();
+            var text = $(this).data("normalized");
             
             showHoverInfo(text);
         });        
@@ -145,7 +145,7 @@ function markupByEntity(text, apiResponse){
             
             // to replace all, first replace 
             text = text.replace(new RegExp(RegExp.escape(original), "g"), 
-                                "<strong class='entity " + cssClass + "'>" + original + "</strong>");
+                                "<strong class='entity " + cssClass + "' data-normalized='" + entity.normalized_text + "'>" + original + "</strong>");
         });
         return text;
     }
