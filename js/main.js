@@ -41,7 +41,7 @@ function render(text){
         console.log(categories);
         template("template-outline", $("#summary-main"), categories);
         $("#summary-main li").on('mouseover click', function(){
-            var text = $(this).data("normalized");
+            var text = $(this).html();
             
             showHoverInfo(text);
         });        
@@ -144,8 +144,12 @@ function markupByEntity(text, apiResponse){
             }
             
             // to replace all, first replace 
-            text = text.replace(new RegExp(RegExp.escape(original), "g"), 
-                                "<strong class='entity " + cssClass + "' data-normalized='" + entity.normalized_text + "'>" + original + "</strong>");
+            
+            var replacement = $('<strong></strong');
+            replacement.addClass('entity').addClass(cssClass);
+            replacement.html(original);
+            replacement.attr('data-normalized', entity.normalized_text.escapeHTML());
+            text = text.replace(new RegExp(RegExp.escape(original), "g"), replacement.outerHTML());
         });
         return text;
     }
@@ -172,4 +176,8 @@ function template(source, container, data, append){
      else
           container.empty().append(jQ);
      return jQ;
+}
+
+$.fn.outerHTML = function(){
+    return this.clone().wrap('<p>').parent().html();
 }
