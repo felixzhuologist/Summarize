@@ -1,0 +1,13 @@
+#inputText {
+	width: 600px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#buttons {
+	padding-bottom: 20px;
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	margin: 0, auto;
+}
