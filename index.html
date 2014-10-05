@@ -26,13 +26,21 @@
                     <button type="button" class="btn btn-danger">Clear</button>     
                 </div>
                 <div id="buttons" class="btn-group btn-group-lg">
-                    <button class="btn btn-info" data-toggle="modal" data-target="#myModal" id="modalButton">Upload</button>
+                    <button type="button" class="btn btn-success" id="btn-submit">Submit</button>
+                </div>
+            </div>
+            <div id="or">
+                <h3> Or: </h3>
+            </div>
+            <div id="buttoncontainer">
+                <div id="buttons" class="btn-group btn-group-lg">
+                    <button class="btn btn-info" data-toggle="modal" data-target="#myModal" id="modalButton">Upload scanned</button>
                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Upload pdf to summarize</h4>
+                            <h4 class="modal-title" id="myModalLabel">Upload file to summarize</h4>
                           </div>
                           <div class="modal-body" id="modalbody">
                             <p id="filelimit"><small><strong>5MB limit.</strong> Only pdfs will work<br></small></p>
@@ -50,7 +58,28 @@
                     </div>
                 </div>
                 <div id="buttons" class="btn-group btn-group-lg">
-                    <button type="button" class="btn btn-success" id="btn-submit">Submit</button>
+                    <button class="btn btn-info" data-toggle="modal" data-target="#myModal" id="modalButton">Upload digitized</button>
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Upload file to summarize</h4>
+                          </div>
+                          <div class="modal-body" id="modalbody">
+                            <p id="filelimit"><small><strong>5MB limit.</strong> Only pdfs will work<br></small></p>
+                            <form action="/upload" method="post" enctype="multipart/form-data">
+                                <center><input type="file" name="file" id="files2"/></center>
+                                <!-- <button type="submit">Upload</button>                       -->
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit" id="uploadfilebutton" data-loading-text="Upload" onclick="disableButton();">Upload</button>
+                          </div>
+                            </form>
+                        </div>
+                      </div>
+                    </div>
                 </div>
             </div>
             <!--

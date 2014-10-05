@@ -16,6 +16,13 @@ hr {
 	padding-top: 20px;
 }
 
+#or {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 0px;
+	margin-top: 0px;
+}
 .tab-content {
 	background-color: white;
 }
