@@ -1,28 +1,42 @@
 $(function(){
-    var text = "George Washington was in Valley Forge, Pennsylvania";
-    // convert text to index
-    // sendIDOLAPICall("createtextindex", {flavor: "standard"});
+    // bind handlers
+    $("#btn-submit").click(function(){
+        console.log("...");
+        var text = getInput();
+        render(text);
+    });
+});
+
+/**
+
+Shows the given text, annotates it, and summarizes it.
+
+*/
+function render(text){
+    // var text = "George Washington was in Valley Forge, Pennsylvania";
+    /* convert text to index
+    // sendIDOLAPICall("createtextindex", {flavor: "standard"});*/
     
     // find entities (key people, places, etc.)
     
-    var entityTypes = [
-        { entityType: "people_eng", cssClass: "text-success" },
-        { entityType: "places_eng", cssClass: "text-info" },
-        { entityType: "date_eng", cssClass: "text-danger" },
-    ];
-    entityTypes.forEach(function(type){
-        var promise = sendIDOLAPICall("extractentities", {
-            text: text,
-            entity_type: type.entityType
-        });
-        promise.done(function success(data, textStatus){
-            text = markupByEntity(text, type.cssClass, data);
-        });       
-    });
-
-    // display marked-up text
-    $("#text-main").html(text);
-});
+    var promise = sendIDOLAPICall("extractentities", {
+        text: text,
+        entity_type: ["people_eng", "places_eng", "date_eng"]
+    });    
+    promise.done(function success(data, textStatus){
+        // there may be some extraneous entities (lesser-known people of the same name) so get rid of those
+        // TODO TODO TODO
+        
+        // mark up text
+        text = markupByEntity(text, data);
+        $("#text-main").html(text);
+        
+        // summarize it too
+        var categories = data.entities.groupBy("type");
+        console.log(categories);
+        template("template-outline", $("#summary-main"), categories);
+    });          
+}
 
 /**
 
@@ -56,23 +70,56 @@ function sendIDOLAPICall(apiName, args){
 
 Adds a <span class="entity"> tag to terms mentioned in the api response.
 @param {String} text    The raw text
-@param {String} cssClass    The custom CSS class to add to the highlighted terms.
 @param {Object} apiResponse The raw response data delivered from the "extractentities" call to the IDOL API.
 
 */
-function markupByEntity(text, cssClass, apiResponse){
+function markupByEntity(text, apiResponse){
     if(apiResponse.entities){
         apiResponse.entities.forEach(function(entity){
             // replace all instances of original text w/ text wrapped in tag
             var original = entity.original_text;
+            
+            // oh and color it too
+            var cssClass = "";
+            switch(entity.type){
+                    case "people_eng":
+                        cssClass = "text-success";
+                        break;
+                    case "places_eng":
+                        cssClass = "text-info";
+                        break;
+                    case "date_eng":
+                        cssClass = "text-danger";
+                        break;                    
+            }
+            
             // to replace all, first replace 
             text = text.replace(new RegExp(RegExp.escape(original), "g"), 
-                                "<strong class='entity'>" + original + "</strong>");
+                                "<strong class='entity " + cssClass + "'>" + original + "</strong>");
         });
-                
         return text;
     }
     else{
         return text;
     }
+}
+
+/**
+ * Loads the container with HTML from the source, with the data supplied. This uses Handlebars.
+ * @param {String}  source    the name of the index. Omit the hashtag. e.g. "template-xyz".
+ * @param {jQuery}  container the element to put the rendered HTML into.
+ * @param {Object}  data      the data used to render the template.
+ * @param {boolean} append    [optional; default false] if true, container will have HTML appended, not replaced.
+ * @return {jQuery} the jQuery items that were loaded into the container. This is just a collection of items, so to find something inside use [return value].closest([selector]).
+ */
+function template(source, container, data, append){
+     var sourceHTML = $('#' + source).html();
+     var templateFn = Handlebars.compile(sourceHTML);
+     var html = templateFn(data);
+     var jQ = $(html);
+     if(append)
+          container.append(jQ);
+     else
+          container.empty().append(jQ);
+     return jQ;
 }
