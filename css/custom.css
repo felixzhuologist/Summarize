@@ -1,3 +1,42 @@
+body {
+	background-color: #F3F3F3;
+}
+
+h2, h3 {
+	font-family: 'Libre Baskerville', serif;
+	line-height: 160%;
+}
+
+hr {
+	display: block;
+	border-width: 2px;
+}
+
+#files2 {
+	padding-top: 20px;
+}
+
+.modal-body {
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+.container {
+	text-align: justify;
+}
+
+#buttoncontainer {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+#uploadcontainer {
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+}
+
 #inputText {
 	width: 600px;
 	margin-right: auto;
@@ -11,7 +50,6 @@
 	text-align: center;
 	margin-right: auto;
 	margin-left: auto;
-<<<<<<< HEAD
 	padding: 0px 15px 20px 15px;
 }
 
@@ -33,12 +71,10 @@
 
 .tab-content {
 	padding: 15px;
-=======
 	margin: 0, auto;
 }
 
 .entity{
     text-decoration: underline;   
     cursor: pointer;
->>>>>>> neel
 }
