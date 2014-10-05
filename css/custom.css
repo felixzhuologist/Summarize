@@ -16,6 +16,10 @@ hr {
 	padding-top: 20px;
 }
 
+.tab-content {
+	background-color: white;
+}
+
 .modal-body {
 	padding-top: 25px;
 	padding-bottom: 25px;
