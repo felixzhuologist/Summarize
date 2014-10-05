@@ -1,7 +1,16 @@
 $(function(){
     // bind handlers
     $("#btn-submit").click(function(){
+        $('#inputs').hide();
+        $('#output').show();
+        
         console.log("...");
+        
+        // show spinner
+        var spinner = $('<span><span class="glyphicon glyphicon-refresh"></span> Analyzing...</span>');
+        $("#text-main").html(spinner.outerHTML());
+        $('#summary-main').html(spinner.outerHTML());
+        
         var text = getInput();
         render(text);
     });
