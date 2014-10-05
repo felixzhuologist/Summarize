@@ -6,9 +6,9 @@ $(function(){
     // find entities (key people, places, etc.)
     
     var entityTypes = [
-        { entityType: "people_eng", cssClass: "entity-people" },
-        { entityType: "places_eng", cssClass: "entity-places" },
-        { entityType: "date_eng", cssClass: "entity-date" },
+        { entityType: "people_eng", cssClass: "text-success" },
+        { entityType: "places_eng", cssClass: "text-info" },
+        { entityType: "date_eng", cssClass: "text-danger" },
     ];
     entityTypes.forEach(function(type){
         var promise = sendIDOLAPICall("extractentities", {
